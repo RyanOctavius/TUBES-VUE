@@ -68,7 +68,7 @@
             </v-container>
             <v-card-actions class="blue">
                 <v-spacer></v-spacer>
-                <v-btn @click="updateData()" style="border-color:transparant" elevation="0" color="transparent">
+                <v-btn v-if="this.$session.exists()" @click="updateData()" style="border-color:transparant" elevation="0" color="transparent">
                     <div class="white--text">EDIT ACCOUNT</div>
                     <v-icon color="white" size="30">mdi-account</v-icon>
                 </v-btn>
@@ -130,6 +130,7 @@ export default {
              updatedId: '',
              updatedPassword:'',
              currentUser: '',
+             currentRole:'',
              text: '',
              color: null,
              load: false,
@@ -139,6 +140,10 @@ export default {
     },
      methods: {
          getData() {
+             if(this.$session.exists() == false){
+                
+             }
+             else{
              var uri = this.$apiUrl + '/login/' + this.$session.get('username')
              this.$http.get(uri).then(response => {
 
@@ -147,7 +152,7 @@ export default {
                  console.log(this.currentUser)
                  console.log(this.user)
              })
-
+             }
          },
          updateData() {
              this.dialog = true;
@@ -156,12 +161,12 @@ export default {
              this.users.append('noTelp', this.form.noTelp);
              this.users.append('password', this.user.password);
              console.log(this.users);
-             var uri = this.$apiUrl + '/edit/' + this.currentUser;
+             var uri = this.$apiUrl + '/edit/' + this.$session.get('username');
              console.log(uri);
              this.load = true
-             this.$http.post(uri, this.users).then(response => {
+             this.$http.put(uri, this.users).then(response => {
                  if(response.data.error == true ){
-                      console.log(response.data.error);
+                      console.log(response.data.error,'error');
                       this.snackbar = true; //mengaktifkan snackbar
                       this.color = 'red'; //memberi warna snackbar
                       this.text = response.data.message; //memasukkan pesan ke snackbar
@@ -174,7 +179,8 @@ export default {
                       this.text = 'SUCCESS'; //memasukkan pesan ke snackbar
                       this.load = false;
                       this.$session.start();
-                      this.$session.set( 'username', this.user.username);
+                      this.$session.set( 'username', this.response.data[0].username);
+                      this.getData();
                   }
              }).catch(error => {
                  this.errors = error
@@ -195,12 +201,9 @@ export default {
                  this.updatedId = item.id
          },
          setForm() {
-             if (this.typeInput === 'new') {
-                 this.sendData()
-             } else {
-                 console.log("dddd")
                  this.updateData()
-             }
+                 this.dialog = false
+             
          },
          resetForm() {
              this.form = {

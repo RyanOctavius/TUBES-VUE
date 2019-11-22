@@ -19,12 +19,12 @@
                             ADD ITEM
                         </v-btn>
                         </div>
-                        <v-btn depressed dark rounded style="text-transform: none !important; margin-right:5px; margin-top:5px" color="blue accent-3"
+                        <v-btn v-if = "this.currentRole == 'user' || this.currentRole =='admin'" depressed dark rounded style="text-transform: none !important; margin-right:5px; margin-top:5px" color="blue accent-3"
                             @click="getService()">
                             <v-icon size="18" class="mr-2">mdi-wrench</v-icon>
                             SERVICE CART
                         </v-btn>
-                        <v-btn depressed dark rounded style="text-transform: none !important;" color="blue accent-3"
+                        <v-btn v-if = "this.currentRole == 'user' || this.currentRole =='admin'" depressed dark rounded style="text-transform: none !important;" color="blue accent-3"
                             @click="getKendaraan()">
                             <v-icon size="18" class="mr-2">mdi-rocket</v-icon>
                             VEHICLE CART

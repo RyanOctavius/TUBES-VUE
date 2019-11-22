@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
 const DashboardLayout = () => import('../components/dashboardLayout.vue')
 const Login = () => import('../components/login.vue')
 const Signup = () => import('../components/signup.vue')
@@ -13,33 +14,38 @@ const Signup = () => import('../components/signup.vue')
                 {
                     name: 'UserController',
                     path: '/user',
-                    component: loadView('userController')
+                    component: loadView('userController'),
+                  
                 },
                 {
                     name: 'mobilController',
                     path: '/mobil',
-                    component: loadView('mobilController')
+                    component: loadView('mobilController'),
+                    
                 },
                 {
                     name: 'motorController',
                     path: '/motor',
-                    component: loadView('motorController')
+                    component: loadView('motorController'),
+                    
                 },
                 {
                     name: 'serviceController',
                     path: '/service',
-                    component: loadView('serviceController')
+                    component: loadView('serviceController'),
+                    
                 },
                 {
                     name: 'cartController',
                     path: '/cart',
-                    component: loadView('cartController')
+                    component: loadView('cartController'),
+                    
                 }
             ]
         },
         {
             name: 'login',
-            path: '',
+            path: '/',
             component: Login,
         },
         {
@@ -48,6 +54,7 @@ const Signup = () => import('../components/signup.vue')
             component: Signup,
         }
         ];
+       
         Vue.use(Router) 
             const router = new Router({mode: 'history', routes: routes})
         export default router

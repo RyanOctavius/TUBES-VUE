@@ -53,7 +53,6 @@ export default {
              load: false,
              type: null,
              alert: false,
-             $router: this.$router,
          }
      },
      methods: {
@@ -103,9 +102,7 @@ export default {
                   this.type = 'error'
               })
          },
-         redirectPage(){
-             this.$router.push('/mobil');
-         }
+         
         //  updateData() {
         //      this.mobils.append('nama', this.form.nama);
         //      this.mobils.append('merk', this.form.merk);
